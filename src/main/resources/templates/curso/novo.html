@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cadastrar Curso</title>
+</head>
+<body class="bg-zinc-900 text-white min-h-screen">
+
+<nav class="bg-zinc-800 p-4 flex justify-between items-center">
+    <div class="flex space-x-6">
+        <a href="/" class="text-white hover:text-purple-400 font-bold">Home</a>
+        <a href="/cursos/listagem" class="text-white hover:text-purple-400 font-bold">Cursos</a>
+        <a href="/usuarios/listagem" class="text-white hover:text-purple-400 font-bold">Usuários</a>
+        <a href="/professores/listagem" class="text-white hover:text-purple-400 font-bold">Professores</a>
+    </div>
+</nav>
+<div class="flex flex-col items-center">
+
+<div class="w-3/4 max-w-xl bg-zinc-800 p-6 mt-6 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-purple-400 text-center">Cadastrar Curso</h1>
+    <form action="" th:action="@{/cursos/create}" method="post" >
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium mb-1">Nome do Curso:</label>
+            <input type="text" id="name" name="name" class="w-full p-2 rounded bg-zinc-700 text-white" placeholder="Digite o nome do curso" required />
+        </div>
+        <div class="mb-4">
+            <label for="category" class="block text-sm font-medium mb-1">Categoria:</label>
+            <input type="text" id="category" name="category" class="w-full p-2 rounded bg-zinc-700 text-white" placeholder="Digite a categoria do curso" required />
+        </div>
+        <div class="mb-4">
+            <label for="professor" class="block text-sm font-medium mb-1">Professores:</label>
+            <select id="professor" name="professor" class="w-full p-2 rounded bg-zinc-700 text-white" placeholder="Selecione o professor">
+                <option value="" disabled selected>Selecione o professor</option>
+                <option th:each="professor : ${professores}"
+                        th:value="${professor.id}"
+                        th:text="${professor.name}"></option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="active" class="block text-sm font-medium mb-1">Ativo:</label>
+            <select id="active" name="active" class="w-full p-2 rounded bg-zinc-700 text-white">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
+        </div>
+        <div class="flex justify-end space-x-4">
+            <a href="/cursos/listagem" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancelar</a>
+            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Salvar</button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Usuários</title>
+</head>
+<body class="bg-zinc-900 text-white min-h-screen flex flex-col">
+
+<nav class="bg-zinc-800 p-4 flex justify-between items-center">
+    <div class="flex space-x-6">
+        <a href="/" class="text-white hover:text-purple-400 font-bold">Home</a>
+        <a href="/cursos/listagem" class="text-white hover:text-purple-400 font-bold">Cursos</a>
+        <a href="/usuarios/listagem" class="text-white hover:text-purple-400 font-bold">Usuários</a>
+        <a href="/professores/listagem" class="text-white hover:text-purple-400 font-bold">Professores</a>
+    </div>
+</nav>
+
+<div class="flex flex-col items-center mt-6">
+
+    <h1 class="text-4xl font-bold mb-6 text-purple-400">Usuários</h1>
+
+    <div class="w-3/4 max-w-4xl bg-zinc-800 p-6 rounded-lg shadow-lg">
+        <table class="w-full text-left text-white">
+            <thead class="bg-purple-600">
+            <tr>
+                <th class="py-3 px-4 text-left">Nome</th>
+                <th class="py-3 px-4 text-left">E-mail</th>
+                <th class="py-3 px-4 text-center">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuario : ${usuarios}" class="odd:bg-zinc-700 even:bg-zinc-800">
+                <td class="py-3 px-4" th:text="${usuario.login}"></td>
+                <td class="py-3 px-4" th:text="${usuario.email}"></td>
+                <td class="py-3 px-4 flex justify-center space-x-4">
+                    <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Editar</a>
+                    <form th:action="@{/usuarios/excluir/{id}(id=${usuario.id})}" method="post" onsubmit="return confirm('Deseja excluir este curso?')">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
+                            Excluir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="flex justify-end mt-4">
+            <a href="/usuarios/create" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Novo Usuário</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
